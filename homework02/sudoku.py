@@ -106,7 +106,7 @@ def find_empty_positions(grid: tp.List[tp.List[str]]) -> tp.Optional[tp.Tuple[in
     """
     for row in range(len(grid)):
         for col in range(len(grid[row])):
-            if grid[row][col] == '.':
+            if grid[row][col] == ".":
                 return row, col
 
 
@@ -163,7 +163,7 @@ def check_solution(solution: tp.List[tp.List[str]]) -> bool:
                 set(get_block(solution, (i, j))) != nabor
                 or set(get_row(solution, (i, j))) != nabor
                 or set(get_col(solution, (i, j))) != nabor
-           ):
+            ):
                 return False
     return True
 
