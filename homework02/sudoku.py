@@ -162,7 +162,7 @@ def check_solution(solution: tp.List[tp.List[str]]) -> bool:
 +                set(get_block(solution, (i, j))) != nabor
 +                or set(get_row(solution, (i, j))) != nabor
 +                or set(get_col(solution, (i, j))) != nabor
-+            ):
++           ):
                 return False
     return True
 
