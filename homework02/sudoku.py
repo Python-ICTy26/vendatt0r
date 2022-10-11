@@ -6,7 +6,7 @@ T = tp.TypeVar("T")
 
 
 def read_sudoku(path: tp.Union[str, pathlib.Path]) -> tp.List[tp.List[str]]:
-    """ Прочитать Судоку из указанного файла """
+    """Прочитать Судоку из указанного файла"""
     path = pathlib.Path(path)
     with path.open() as f:
         puzzle = f.read()
@@ -20,7 +20,7 @@ def create_grid(puzzle: str) -> tp.List[tp.List[str]]:
 
 
 def display(grid: tp.List[tp.List[str]]) -> None:
-    """Вывод Судоку """
+    """Вывод Судоку"""
     width = 2
     line = "+".join(["-" * (width * 3)] * 3)
     for row in range(9):
@@ -45,7 +45,7 @@ def group(values: tp.List[T], n: int) -> tp.List[tp.List[T]]:
     """
     group_n = []
     for i in range(0, len(values), n):
-        group_n.append(values[i : i+n])
+        group_n.append(values[i : i + n])
     return group_n
 
 
@@ -94,7 +94,6 @@ def get_block(grid: tp.List[tp.List[str]], pos: tp.Tuple[int, int]) -> tp.List[s
     return block
 
 
-
 def find_empty_positions(grid: tp.List[tp.List[str]]) -> tp.Optional[tp.Tuple[int, int]]:
     """Найти первую свободную позицию в пазле
 
@@ -108,7 +107,7 @@ def find_empty_positions(grid: tp.List[tp.List[str]]) -> tp.Optional[tp.Tuple[in
     for row in range(len(grid)):
         for col in range(len(grid[row])):
             if grid[row][col] == '.':
-                return row,col
+                return row, col
 
 
 def find_possible_values(grid: tp.List[tp.List[str]], pos: tp.Tuple[int, int]) -> tp.Set[str]:
@@ -125,11 +124,11 @@ def find_possible_values(grid: tp.List[tp.List[str]], pos: tp.Tuple[int, int]) -
     row = get_row(grid, pos)
     col = get_col(grid, pos)
     block = get_block(grid, pos)
-    return set('123456789') - set(block) - set(row) - set(col)
+    return set("123456789") - set(block) - set(row) - set(col)
 
 
 def solve(grid: tp.List[tp.List[str]]) -> tp.Optional[tp.List[tp.List[str]]]:
-    """ Решение пазла, заданного в grid """
+    """Решение пазла, заданного в grid"""
     """ Как решать Судоку?
         1. Найти свободную позицию
         2. Найти все возможные значения, которые могут находиться на этой позиции
@@ -154,12 +153,16 @@ def solve(grid: tp.List[tp.List[str]]) -> tp.Optional[tp.List[tp.List[str]]]:
     return None
 
 def check_solution(solution: tp.List[tp.List[str]]) -> bool:
-    """ Если решение solution верно, то вернуть True, в противном случае False """
+    """Если решение solution верно, то вернуть True, в противном случае False"""
     # TODO: Add doctests with bad puzzles
     nabor = set("123456789")
     for i in range(len(solution)):
         for j in range(len(solution)):
-            if set(get_block(solution, (i, j))) != nabor or set(get_row(solution, (i, j))) != nabor or set(get_col(solution, (i, j))) != nabor:
+            if (
++                set(get_block(solution, (i, j))) != nabor
++                or set(get_row(solution, (i, j))) != nabor
++                or set(get_col(solution, (i, j))) != nabor
++            ):
                 return False
     return True
 
@@ -205,4 +208,3 @@ if __name__ == "__main__":
             print(f"Puzzle {fname} can't be solved")
         else:
             display(solution)
-
