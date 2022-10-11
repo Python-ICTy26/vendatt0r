@@ -98,7 +98,7 @@ def check_solution(solution: tp.List[tp.List[str]]) -> bool:
     return True
 
 
-def generate_sudoku(N: int) -> tp.List[tp.List[str]]:
+def generate_sudoku(N: int):
     init = solve([["."] * 9 for _ in range(9)])
     count = 0
     while count < 81 - N:
