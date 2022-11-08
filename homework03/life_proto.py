@@ -20,7 +20,6 @@ class GameOfLife:
         self.cols = self.width // self.cell_size
         self.grid = self.create_grid(randomize=True)
 
-
         # Устанавливаем размер окна
         self.screen_size = width, height
         # Создание нового окна
@@ -34,14 +33,14 @@ class GameOfLife:
         self.speed = speed
 
     def draw_lines(self) -> None:
-        """ Отрисовать сетку """
+        """Отрисовать сетку"""
         for x in range(0, self.width, self.cell_size):
             pygame.draw.line(self.screen, pygame.Color("black"), (x, 0), (x, self.height))
         for y in range(0, self.height, self.cell_size):
             pygame.draw.line(self.screen, pygame.Color("black"), (0, y), (self.width, y))
 
     def run(self) -> None:
-        """ Запустить игру """
+        """Запустить игру"""
         pygame.init()
         clock = pygame.time.Clock()
         pygame.display.set_caption("Game of Life")
@@ -69,7 +68,7 @@ class GameOfLife:
         grid = []
         for i in range(self.rows):
             grid.append([])
-            grid[i]=[random.randint(0, int(randomize)) for j in range(self.cols)]
+            grid[i] = [random.randint(0, int(randomize)) for j in range(self.cols)]
         return grid
 
     def draw_grid(self) -> None:
@@ -89,7 +88,6 @@ class GameOfLife:
                 continue
             answer.append(self.grid[newrow][newcol])
         return answer
-
 
     def get_next_generation(self) -> Grid:
         newgrid: Grid = []
