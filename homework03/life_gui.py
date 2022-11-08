@@ -12,7 +12,8 @@ class GUI(UI):
         self.screen_size = self.life.cols * self.cell_size, self.life.rows * self.cell_size
         
         self.screen = pygame.display.set_mode(self.screen_size)   
-        
+ 
+
     def draw_lines(self) -> None:
         for x in range(0, self.width, self.cell_size):
             pygame.draw.line(self.screen, pygame.Color("black"), (x, 0), (x, self.height))
