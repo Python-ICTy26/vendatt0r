@@ -93,7 +93,7 @@ class GameOfLife:
         whole = file.readlines()
         grid = []
         for i in range(len(whole)):
-            if whole[i] != '\n':
+            if whole[i] != "\n":
                 whole[i] = whole[i][:-1]
                 row = [int(n) for n in list(whole[i])]
                 grid.append(row)
