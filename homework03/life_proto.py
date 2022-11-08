@@ -52,7 +52,7 @@ class GameOfLife:
         running = True
         while running:
             for event in pygame.event.get():
-                if event.type == QUIT:
+                if event.type == pygame.QUIT:
                     running = False
             self.draw_lines()
 
@@ -65,7 +65,7 @@ class GameOfLife:
         pygame.quit()
 
     def create_grid(self, randomize: bool = False) -> Grid:
-        grid = []
+        grid: Grid = []
         for i in range(self.rows):
             grid.append([])
             grid[i] = [random.randint(0, int(randomize)) for j in range(self.cols)]
