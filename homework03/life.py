@@ -28,14 +28,12 @@ class GameOfLife:
         # Текущее число поколений
         self.generations = 1
 
-
     def create_grid(self, randomize: bool = False) -> Grid:
-        grid = []
+        grid: Grid = []
         for i in range(self.rows):
             grid.append([])
-            grid[i]=[random.randint(0, int(randomize)) for j in range(self.cols)]
+            grid[i] = [random.randint(0, int(randomize)) for j in range(self.cols)]
         return grid
-
 
     def get_neighbours(self, cell: Cell) -> Cells:
         row, col = cell
@@ -48,7 +46,6 @@ class GameOfLife:
                 continue
             rez.append(self.curr_generation[newrow][newcol])
         return rez
-
 
     def get_next_generation(self) -> Grid:
         newgrid: Grid = []
@@ -81,7 +78,11 @@ class GameOfLife:
 
     @property
     def is_max_generations_exceeded(self) -> bool:
-        return self.generations >= self.max_generations
+        if self.max_generations is None:
+            self.max_generations = 10
+        if self.generations >= self.max_generations:
+            return True
+        return False
 
     @property
     def is_changing(self) -> bool:
@@ -96,11 +97,11 @@ class GameOfLife:
         whole = file.readlines()
         grid = []
         for i in range(len(whole)):
-            if whole[i]!='\n':
-                whole[i]=whole[i][:-1]
-                row=[int(n) for n in list(whole[i])]
+            if whole[i] != "\n":
+                whole[i] = whole[i][:-1]
+                row = [int(n) for n in list(whole[i])]
                 grid.append(row)
-        game = GameOfLife((len(grid),len(grid[0])))
+        game = GameOfLife((len(grid), len(grid[0])))
         game.curr_generation = grid
         file.close()
         return game
@@ -110,5 +111,5 @@ class GameOfLife:
         for i in range(len(self.curr_generation)):
             for j in range(len(self.curr_generation[0])):
                 file.write(str(self.curr_generation[i][j]))
-            file.write('\n')
+            file.write("\n")
         file.close()
