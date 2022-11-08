@@ -29,7 +29,7 @@ class GameOfLife:
         self.generations = 1
 
     def create_grid(self, randomize: bool = False) -> Grid:
-        grid = []
+        grid: Grid = []
         for i in range(self.rows):
             grid.append([])
             grid[i] = [random.randint(0, int(randomize)) for j in range(self.cols)]
