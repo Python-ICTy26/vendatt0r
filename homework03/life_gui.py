@@ -6,12 +6,17 @@ from ui import UI
 
 class GUI(UI):
     def __init__(self, life: GameOfLife, cell_size: int = 10, speed: int = 10) -> None:
-        super().__init__(life)
         self.cell_size = cell_size
         self.speed = speed
-        self.screen_size = self.life.cols * self.cell_size, self.life.rows * self.cell_size
+        # Устанавливаем размер окна
+        # Создание нового окна
+        super().__init__(life)
+
+        self.height = self.life.rows * self.cell_size
+        self.width = self.life.cols * self.cell_size
+        self.screen_size = self.width, self.height
+        self.screen = pygame.display.set_mode(self.screen_size) 
         
-        self.screen = pygame.display.set_mode(self.screen_size)   
     def draw_lines(self) -> None:
         for x in range(0, self.width, self.cell_size):
             pygame.draw.line(self.screen, pygame.Color("black"), (x, 0), (x, self.height))
