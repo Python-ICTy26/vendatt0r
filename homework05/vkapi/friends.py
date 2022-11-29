@@ -102,3 +102,40 @@ def get_mutual(
             time.sleep(1)
 
     return mutual_friends
+
+
+def get_mutuals(
+    source_uid: tp.Optional[int],
+    target_uids: tp.List[int],
+    order: str = "",
+    count: tp.Optional[int] = None,
+    offset: int = 0,
+    progress=None,
+) -> tp.List[MutualFriends]:
+    """
+    Получить список идентификаторов общих друзей между парой пользователей.
+    :param source_uid: Идентификатор пользователя, чьи друзья пересекаются с друзьями пользователя с идентификатором target_uid.
+    :param target_uid: Идентификатор пользователя, с которым необходимо искать общих друзей.
+    :param target_uids: Cписок идентификаторов пользователей, с которыми необходимо искать общих друзей.
+    :param order: Порядок, в котором нужно вернуть список общих друзей.
+    :param count: Количество общих друзей, которое нужно вернуть.
+    :param offset: Смещение, необходимое для выборки определенного подмножества общих друзей.
+    :param progress: Callback для отображения прогресса.
+    """
+    res = []
+    for i in range((len(target_uids) / 100).__ceil__()):
+        response = session.get(
+            "friends.getMutual",
+            source_uid=source_uid,
+            target_uids=target_uids,
+            order=order,
+            count=count,
+            offset=i * 100,
+            access_token=config.VK_CONFIG["access_token"],
+            v=config.VK_CONFIG["version"],
+        )
+        json = response.json()
+        res += json["response"]
+        if i % 2 == 0:
+            time.sleep(1)
+    return res
