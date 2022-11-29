@@ -27,6 +27,7 @@ class Session:
         self.max_retries = max_retries
         self.backoff_factor = backoff_factor
         
+        
         self.session = requests.Session()
         adapter = HTTPAdapter(
             max_retries=Retry(
