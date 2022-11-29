@@ -3,7 +3,7 @@ import time
 import typing as tp
 from math import ceil
 from string import Template
-from math import ceil
+
 from time import sleep
 import pandas as pd
 from pandas import json_normalize
