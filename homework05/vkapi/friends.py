@@ -8,7 +8,7 @@ import requests
 from homework05.vkapi import config, session
 from homework05.vkapi.config import VK_CONFIG
 from homework05.vkapi.exceptions import APIError
-from homework05.vkapi.config import VK_CONFIG
+
 QueryParams = tp.Optional[tp.Dict[str, tp.Union[str, int]]]
 
 
