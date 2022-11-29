@@ -8,7 +8,6 @@ from requests.packages.urllib3.util.retry import Retry
 class Session:
     """
     Сессия.
-
     :param base_url: Базовый адрес, на который будут выполняться запросы.
     :param timeout: Максимальное время ожидания ответа от сервера.
     :param max_retries: Максимальное число повторных запросов.
@@ -26,8 +25,7 @@ class Session:
         self.timeout = timeout
         self.max_retries = max_retries
         self.backoff_factor = backoff_factor
-        
-        
+
         self.session = requests.Session()
         adapter = HTTPAdapter(
             max_retries=Retry(
@@ -40,10 +38,10 @@ class Session:
         self.session.mount("https://", adapter)
         self.session.mount("http://", adapter)
 
-    def get(self, url: str, params=None, *args: tp.Any, **kwargs: tp.Any) -> requests.Response:
+    def get(self, url: str, *args: tp.Any, **kwargs: tp.Any) -> requests.Response:
         response = self.session.get(f"{self.base_url}/{url}", params=kwargs, timeout=self.timeout)
         return response
 
-    def post(self, url, data=None, params=None, **kwargs: tp.Any) -> requests.Response:
+    def post(self, url: str, *args: tp.Any, **kwargs: tp.Any) -> requests.Response:
         response = self.session.post(f"{self.base_url}/{url}", data=kwargs)
         return response
