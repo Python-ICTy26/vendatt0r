@@ -30,22 +30,17 @@ def get_friends(
     :param fields: Список полей, которые нужно получить для каждого пользователя.
     :return: Список идентификаторов друзей пользователя или список пользователей.
     """
-    domain = VK_CONFIG["domain"]
-    access_token = VK_CONFIG["access_token"]
-    v = VK_CONFIG["version"]
-    fields = "sex"
-
-    get = requests.get(
-        f"{domain}/friends.get",
-        params={
-            "access_token": access_token,
-            "user_id": user_id,
-            "fields": fields,
-            "v": v,
-        },
+    friends = session.get(
+        "friends.get",
+        user_id=user_id,
+        count=count,
+        offset=offset,
+        fields=fields,
+        access_token=config.VK_CONFIG["access_token"],
+        v=config.VK_CONFIG["version"],
     )
-    response = get.json()["response"]
-    return FriendsResponse(count=response["count"], items=response["items"])
+    res = friends.json()["response"]
+    return FriendsResponse(res["count"], res["items"])
 
 
 class MutualFriends(tp.TypedDict):
