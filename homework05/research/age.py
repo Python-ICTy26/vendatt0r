@@ -16,15 +16,21 @@ def age_predict(user_id: int) -> tp.Optional[float]:
     :return: Медианный возраст пользователя.
     """
 
-    current_year = dt.datetime.now().year
-    friends = get_friends(user_id).items
-    ages = []
-    for friend in friends:
-        if (bdate := friend.get("bdate")) is not None:
-            if re.findall(r"\d[.]\d[.]\d", bdate):
-                year_of_birth = int(bdate.split(".")[-1])
-                ages.append(current_year - year_of_birth)
-    if ages:
-        return statistics.median(ages)
-    else:
-        return None
+    def calculate_age(date):
+        day = int(date[0])
+        month = int(date[1])
+        year = int(date[2])
+        today = dt.date.today()
+        ages = today.year - year
+        if ((today.month, today.day) < (month, day)):
+            ages -= 1
+        return ages
+
+    friends = get_friends(user_id, fields=["bdate"]).items
+    res = []
+    for i in friends:
+        if "bdate" in i:
+            if re.findall(r"\d[.]\d[.]\d", i["bdate"]):
+                born = i["bdate"].split(".")
+                res.append(calculate_age(born))
+    return statistics.median(res) if res else None
