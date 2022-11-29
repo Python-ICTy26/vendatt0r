@@ -14,7 +14,7 @@ def age_predict(user_id: int) -> tp.Optional[float]:
     :return: Медианный возраст пользователя.
     """
 
-    def calculate_age(day, month, year):
+    def age(day, month, year):
         today = dt.date.today()
         return today.year - year - ((today.month, today.day) < (month, day))
 
@@ -24,5 +24,5 @@ def age_predict(user_id: int) -> tp.Optional[float]:
         if "bdate" in friend:
             if re.findall(r"\d[.]\d[.]\d", friend["bdate"]):
                 born = friend["bdate"].split(".")
-                res.append(calculate_age(int(born[0]), int(born[1]), int(born[2])))
+                res.append(age(int(born[0]), int(born[1]), int(born[2])))
     return statistics.median(res) if res else None
