@@ -3,7 +3,6 @@ import time
 import typing as tp
 from math import ceil
 from string import Template
-
 from time import sleep
 
 import pandas as pd
