@@ -7,7 +7,6 @@ from time import sleep
 
 import pandas as pd
 from pandas import json_normalize
-
 from vkapi.config import VK_CONFIG
 from vkapi.exceptions import APIError
 from vkapi.session import Session
