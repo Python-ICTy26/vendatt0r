@@ -5,9 +5,9 @@ import typing as tp
 
 import requests
 
-from homework05.vkapi import config, session
-from homework05.vkapi.config import VK_CONFIG
-from homework05.vkapi.exceptions import APIError
+from vkapi import config, session
+from vkapi.config import VK_CONFIG
+from vkapi.exceptions import APIError
 
 QueryParams = tp.Optional[tp.Dict[str, tp.Union[str, int]]]
 
