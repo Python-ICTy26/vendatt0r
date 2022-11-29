@@ -22,7 +22,7 @@ def age_predict(user_id: int) -> tp.Optional[float]:
         year = int(date[2])
         today = dt.date.today()
         ages = today.year - year
-        if ((today.month, today.day) < (month, day)):
+        if (today.month, today.day) < (month, day):
             ages -= 1
         return ages
 
