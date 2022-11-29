@@ -26,7 +26,6 @@ class Session:
         self.timeout = timeout
         self.max_retries = max_retries
         self.backoff_factor = backoff_factor
-        self.session = None
         
         self.session = requests.Session()
         adapter = HTTPAdapter(
