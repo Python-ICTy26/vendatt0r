@@ -1,6 +1,7 @@
 import textwrap
 import time
 import typing as tp
+from math import ceil
 from string import Template
 from math import ceil
 from time import sleep
