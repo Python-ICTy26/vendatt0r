@@ -45,8 +45,12 @@ class Session:
     def request_retry_session(self, max_retries, backoff_factor) -> requests.Session:
         if not self.session:
             self.session = requests.Session()
-            retry = Retry(total=max_retries, backoff_factor=backoff_factor, raise_on_status=True,
-                          status_forcelist=[500, 502, 503, 504])
+            retry = Retry(
+                 total=max_retries,
+                 backoff_factor=backoff_factor,
+                 raise_on_status=True,
+                 status_forcelist=[500, 502, 503, 504],
+            )
             adapter = HTTPAdapter(max_retries=retry)
             self.session.mount("https://", adapter)
         return self.session
