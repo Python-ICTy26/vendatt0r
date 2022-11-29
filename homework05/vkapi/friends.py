@@ -2,10 +2,10 @@ import dataclasses
 import math
 import time
 import typing as tp
-
-from vkapi import config, session
-from vkapi.exceptions import APIError
-
+import requests
+from homework05.vkapi import config, session
+from homework05.vkapi.exceptions import APIError
+from homework05.vkapi.config import VK_CONFIG
 QueryParams = tp.Optional[tp.Dict[str, tp.Union[str, int]]]
 
 
@@ -28,7 +28,19 @@ def get_friends(
     :param fields: Список полей, которые нужно получить для каждого пользователя.
     :return: Список идентификаторов друзей пользователя или список пользователей.
     """
-    pass
+    domain = VK_CONFIG["domain"]
+    access_token = VK_CONFIG["access_token"]
+    v = VK_CONFIG["version"]
+    fields = 'sex'
+
+    get = requests.get(f"{domain}/friends.get",params={
+        "access_token": access_token,
+        "user_id": user_id,
+        "fields": fields,
+        "v": v,
+    })
+    response = get.json()["response"]
+    return FriendsResponse(count=response["count"], items=response["items"])
 
 
 class MutualFriends(tp.TypedDict):
@@ -57,4 +69,33 @@ def get_mutual(
     :param offset: Смещение, необходимое для выборки определенного подмножества общих друзей.
     :param progress: Callback для отображения прогресса.
     """
-    pass
+    domain = VK_CONFIG["domain"]
+    access_token = VK_CONFIG["access_token"]
+    v = VK_CONFIG["version"]
+
+    mutual_friends = []
+
+    if target_uids is None:
+        ln = 1
+    else:
+        ln = (len(target_uids) / 100).__ceil__()
+
+    for i in range(ln):
+        get = requests.get(f"{domain}/friends.getMutual", params={
+            "access_token": access_token,
+            "source_uid": source_uid,
+            "target_uid": target_uid,
+            "target_uids": target_uids,
+            "order": order,
+            "count": count,
+            "offset": i * 100,
+            "v": v
+        })
+        response = get.json()["response"]
+        mutual_friends += response
+        print(mutual_friends)
+
+        if i % 2 == 0:
+            time.sleep(1)
+
+    return mutual_friends
