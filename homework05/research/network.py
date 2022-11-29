@@ -22,9 +22,9 @@ def ego_network(
         target_uids=friends,
     )
     res = []
-    for person in mutual:
-        for friend in person["common_friends"]:
-            res.append((person["id"], friend))
+    for user in mutual:
+        for friend in user["common_friends"]:
+            res.append((user["id"], friend))
     return res
 
 
