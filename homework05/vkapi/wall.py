@@ -67,15 +67,22 @@ def get_wall_execute(
     answer = []
     for i in range(ceil(count / 100)):
         code_for_request = code % (
-            owner_id, domain, 100 * i, 100 * (i + 1) if count > 100 else count, filter, extended, fields, VK_CONFIG["version"]
+            owner_id,
+            domain,
+            100 * i,
+            100 * (i + 1) if count > 100 else count,
+            filter,
+            extended,
+            fields,
+            VK_CONFIG["version"],
         )
         response = current_session.post(
             url="execute",
             data={
                 "code": code_for_request,
                 "access_token": VK_CONFIG["access_token"],
-                "v": VK_CONFIG["version"]
-            }
+                "v": VK_CONFIG["version"],
+            },
         )
         answer += response.json()["response"]["items"]
         if i % 2 == 0:
