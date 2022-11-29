@@ -10,6 +10,7 @@ import pandas as pd
 from pandas import json_normalize
 
 from homework05.vkapi.config import VK_CONFIG
+from homework05.vkapi.exceptions import APIError
 from homework05.vkapi.session import Session
 from homework05.vkapi.exceptions import APIError
 
