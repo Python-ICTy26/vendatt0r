@@ -34,14 +34,17 @@ def get_friends(
     domain = VK_CONFIG["domain"]
     access_token = VK_CONFIG["access_token"]
     v = VK_CONFIG["version"]
-    fields = 'sex'
+    fields = "sex"
 
-    get = requests.get(f"{domain}/friends.get",params={
-        "access_token": access_token,
-        "user_id": user_id,
-        "fields": fields,
-        "v": v,
-    })
+    get = requests.get(
+        f"{domain}/friends.get",
+        params={
+            "access_token": access_token,
+            "user_id": user_id,
+            "fields": fields,
+            "v": v,
+        },
+    )
     response = get.json()["response"]
     return FriendsResponse(count=response["count"], items=response["items"])
 
@@ -84,16 +87,19 @@ def get_mutual(
         ln = (len(target_uids) / 100).__ceil__()
 
     for i in range(ln):
-        get = requests.get(f"{domain}/friends.getMutual", params={
-            "access_token": access_token,
-            "source_uid": source_uid,
-            "target_uid": target_uid,
-            "target_uids": target_uids,
-            "order": order,
-            "count": count,
-            "offset": i * 100,
-            "v": v
-        })
+        get = requests.get(
+            f"{domain}/friends.getMutual",
+            params={
+                "access_token": access_token,
+                "source_uid": source_uid,
+                "target_uid": target_uid,
+                "target_uids": target_uids,
+                "order": order,
+                "count": count,
+                "offset": i * 100,
+                "v": v,
+            },
+        )
         response = get.json()["response"]
         mutual_friends += response
         print(mutual_friends)
