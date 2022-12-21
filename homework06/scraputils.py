@@ -1,6 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
 
+
 def extract_news(parser):
     """Extract news from a given web page"""
     body = parser.findAll("table")[2]
@@ -28,9 +29,11 @@ def extract_news(parser):
         )
     return news_list
 
+
 def extract_next_page(parser):
     """Extract next page URL"""
     return parser.findAll("table")[2].findAll("a", {"class": "morelink"})[0]["href"]
+
 
 def get_news(url, n_pages=1):
     """Collect news from a given web page"""
