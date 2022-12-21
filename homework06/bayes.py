@@ -2,6 +2,7 @@ from math import log
 
 import numpy as np
 
+
 class NaiveBayesClassifier:
     def __init__(self, alpha):
         self.alpha = alpha
