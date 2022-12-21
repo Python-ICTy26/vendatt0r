@@ -28,6 +28,7 @@ class NaiveBayesClassifier:
                 for key in counter.keys()
             }
             self.dictionary[word] = probabilities
+            
     def predict(self, X):
         """Perform classification on an array of test vectors X."""
         predictions = []
@@ -41,6 +42,7 @@ class NaiveBayesClassifier:
             predicted_classes = dict(sorted(predict.items(), key=lambda x: x[1]))
             predictions.append(list(predicted_classes)[-1])
         return predictions
+    
     def score(self, X_test, y_test):
         """Returns the mean accuracy on the given test data and labels."""
         predicted = self.predict(x_test)
