@@ -28,7 +28,7 @@ class NaiveBayesClassifier:
                 for key in counter.keys()
             }
             self.dictionary[word] = probabilities
-            
+
     def predict(self, X):
         """Perform classification on an array of test vectors X."""
         predictions = []
