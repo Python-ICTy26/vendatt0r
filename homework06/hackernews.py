@@ -2,8 +2,11 @@ import nltk
 from bottle import redirect, request, route, run, template
 from db import News, fill, session
 from scraputils import get_news
+
 from bayes import NaiveBayesClassifier
+
 nltk.download("punkt")
+
 
 def prepare(s):
     translator = str.maketrans("", "", string.punctuation)
@@ -11,11 +14,13 @@ def prepare(s):
     tokens = nltk.word_tokenize(s)
     return tokens
 
+
 @route("/news")
 def news_list():
     s = session()
     rows = s.query(News).filter(News.label == None).all()
     return template("news_template", rows=rows)
+
 
 @route("/add_label/")
 def add_label():
@@ -29,6 +34,7 @@ def add_label():
     else:
         redirect("/news")
 
+
 @route("/update")
 def update_news():
     recent_news = get_news()
@@ -39,6 +45,7 @@ def update_news():
         if not existing_news or news not in existing_news:
             fill(news)
     redirect("/news")
+
 
 @route("/classify")
 def classify_news():
@@ -68,6 +75,7 @@ def classify_news():
     classified_news.extend(second_priority)
     classified_news.extend(third_priority)
     return template("news_recommendations", rows=classified_news)
+
 
 if __name__ == "__main__":
     run(host="localhost", port=8080)
